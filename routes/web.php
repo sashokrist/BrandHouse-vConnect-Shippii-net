@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\Status2Controller;
 use Illuminate\Support\Facades\Route;
 
@@ -133,11 +135,13 @@ Route::get('/status/{statusId}/like', [
     'middleware' => ['auth'],
 ]);
 
-/*Route::get('post', [PostController::class, 'create'])->name('post.create');
-Route::post('post', [PostController::class, 'store'])->name('post.store');
-Route::get('/posts', [PostController::class, 'index'])->name('posts');
-Route::get('/article/{post:slug}',  [PostController::class, 'show'])->name('post.show');
-Route::post('/comment/store', [CommentController::class, 'store'])->name('comment.add');
-Route::post('/reply/store',  [CommentController::class,'replyStore'])->name('reply.add');*/
+//Poll
+//Route::get('poll/index', [ QuestionnaireController::class, 'index'])->name('poll/index');
+Route::get('/questionnaires/create', [ QuestionnaireController::class, 'create'])->name('questionnaires/create');
+Route::post('/questionnaires', [ QuestionnaireController::class, 'store'])->name('questionnaires');
+Route::get('/questionnaires/{questionnaire}', [ QuestionnaireController::class, 'show']);
+
+Route::get('/questionnaires/{questionnaire}/questions/create',  [ QuestionController::class, 'create']);
+Route::post('/questionnaires/{questionnaire}/questions',  [ QuestionController::class, 'store']);
 
 

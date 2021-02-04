@@ -26,7 +26,7 @@
                     <div class="media">
                         <a class="pull-left" href="{{ route('profile.index', ['username' => $status->user->username]) }}">
                           {{--  <img class="media-object" alt="{{ $status->user->getNameOrUsername() }}" src="{{ $status->user->getAvatarUrl() }}">--}}
-                            <img src="{{asset('images/'.$status->user->avatar)}}" width="50" height="50" alt="profile picture" title="{{ Auth::user()->name }}">
+                            <img src="{{asset('images/'.$status->user->avatar)}}" width="50" height="50" alt="profile picture"  class="img-circle" title="{{ Auth::user()->name }}"  >
                         </a>
                         <div class="media-body">
                             <h4 class="media-heading"><a href="{{ route('profile.index', ['username' => $status->user->username]) }}">{{ $status->user->getNameOrUsername() }}</a></h4>
@@ -43,7 +43,7 @@
                                 <div class="media">
                                     <a class="pull-left" href="{{ route('profile.index', ['username' => $reply->user->username]) }}">
                                        {{-- <img class="media-object" alt="{{ $reply->user->getNameOrUsername() }}" src="{{ $reply->user->getAvatarUrl() }}">--}}
-                                        <img src="{{asset('images/'.$reply->user->avatar)}}" width="50" height="50" alt="profile picture" title="{{ Auth::user()->name }}">
+                                        <img src="{{asset('images/'.$reply->user->avatar)}}" width="50" height="50" class="img-circle" alt="profile picture" title="{{ Auth::user()->name }}">
                                     </a>
                                     <div class="media-body">
                                         <h5 class="media-heading"><a href="{{ route('profile.index', ['username' => $reply->user->username]) }}">{{ $reply->user->getNameOrUsername() }}</a></h5>

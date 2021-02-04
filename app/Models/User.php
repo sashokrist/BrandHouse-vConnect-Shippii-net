@@ -127,4 +127,9 @@ class User extends Model implements AuthenticatableContract
         return $this->hasMany(Post::class);
 
     }
+
+    public function questionnaries()
+    {
+        return $this->hasMany(Questionnaire::class);
+    }
 }

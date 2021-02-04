@@ -2,7 +2,7 @@
     <a class="pull-left" href="{{ route('profile.index', ['username' => $user->username]) }}">
 
       {{--  <img class="media-object" alt="{{ $user->getNameOrUsername() }}" src="{{ $user->getAvatarUrl() }}">--}}
-        <img src="{{asset('images/'.$user->avatar)}}" width="50" height="50" alt="{{ $user->getNameOrUsername() }}" title="{{ $user->getNameOrUsername() }}">
+        <img src="{{asset('images/'.$user->avatar)}}" width="50" height="50" class="img-circle" alt="{{ $user->getNameOrUsername() }}" title="{{ $user->getNameOrUsername() }}">
 
     </a>
     <div class="media-body">

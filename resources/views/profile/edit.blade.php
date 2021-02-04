@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-lg-6">
-            <img src="{{asset('images/'.Auth::user()->avatar)}}" width="150" height="150" alt="profile picture" title="{{ Auth::user()->name }}">
+            <img src="{{asset('images/'.Auth::user()->avatar)}}" width="150" height="150" class="img-circle" alt="profile picture" title="{{ Auth::user()->name }}">
             <form class="form-vertical" role="form" method="post" action="{{ route('profile.edit') }}" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-6">
