@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\Status2Controller;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 /**
  * Home
@@ -143,5 +144,10 @@ Route::get('/questionnaires/{questionnaire}', [ QuestionnaireController::class, 
 
 Route::get('/questionnaires/{questionnaire}/questions/create',  [ QuestionController::class, 'create']);
 Route::post('/questionnaires/{questionnaire}/questions',  [ QuestionController::class, 'store']);
+
+Route::get('/surveys/{questionnaire}-{slug}',  [ SurveyController::class, 'show']);
+Route::post('/surveys/{questionnaire}-{slug}',  [ SurveyController::class, 'store']);
+
+
 
 

@@ -12,8 +12,8 @@
                     <div class="card-body">
                         Purpose: <h3>{{ $questionnaire->purpose }}</h3><br>
                         <hr>
-                        <a href="/questionnaires/{{ $questionnaire->id }}/questions/create" class="btn btn-primary">Add
-                            Question</a>
+                        <a href="/questionnaires/{{ $questionnaire->id }}/questions/create" class="btn btn-primary">Add Question</a>
+                        <a href="/surveys/{{ $questionnaire->id }}-{{ Str::slug($questionnaire->title) }}" class="btn btn-primary">Take Survey</a>
                     </div>
                 </div>
 
