@@ -1,20 +1,9 @@
 @extends('templates.default')
 
 @section('content')
+<div class="col-md-12 text-center" >
+    <a href="{{ route('auth.signin') }}" class="btn btn-primary">Sign in</a>
+    <a href="{{ route('auth.signup') }}" class="btn btn-primary">Sign up</a>
+</div>
 
-        <div class="row">
-            <div class="col-xs-4">
-                <img src="{{ asset('/storage/images/brandhouse2.jpg') }}" alt="...">
-            </div>
-            <div class="col-xs-4">
-                <img src="{{ asset('/storage/images/vconnect.png') }}" alt="...">
-            </div>
-            <div class="col-xs-4">
-                <img src="{{ asset('/storage/images/shippii.jpg') }}" alt="...">
-            </div>
-            <br>
-            <hr>
-            <hr>
-        </div>
-        <h1 class="text-center">BrandHouse Vconnect Shippii Network</h1>
 @stop

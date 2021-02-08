@@ -12,11 +12,11 @@ class QuestionnaireController extends Controller
         $this->middleware('auth');
     }
 
-    /*    public function index()
+        public function index()
         {
-            $poll = Questionnaire::latest()->first();
-            return view('questionnaire.show', compact('poll'));
-        }*/
+            $questionnaires = Questionnaire::all();
+            return view('questionnaire.index', compact('questionnaires'));
+        }
 
     public function create()
     {

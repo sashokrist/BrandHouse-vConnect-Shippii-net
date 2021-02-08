@@ -32,7 +32,7 @@ class SurveyController extends Controller
         $survey = $questionnaire->surveys()->create($validated['survey']);
         $survey->responses()->createMany($validated['responses']);
 
-        return 'Thank you';
+        return redirect()->route('questionnaires/index');
 
     }
 }

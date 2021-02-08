@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FriendController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Status2Controller;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,127 +32,55 @@ use Illuminate\Support\Facades\Route;
 /**
  * Home
  */
-
-Route::get('/', [
-    'uses' => '\App\Http\Controllers\HomeController@index',
-    'as' => 'home',
-]);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /**
  * Authentication
  */
-
-Route::get('/signup', [
-    'uses' => '\App\Http\Controllers\AuthController@getSignup',
-    'as' => 'auth.signup',
-    'middleware' => ['guest'],
-]);
-
-Route::post('/signup', [
-    'uses' => '\App\Http\Controllers\AuthController@postSignup',
-    'middleware' => ['guest'],
-]);
-
-Route::get('/signin', [
-    'uses' => '\App\Http\Controllers\AuthController@getSignin',
-    'as' => 'auth.signin',
-    'middleware' => ['guest'],
-]);
-
-Route::post('/signin', [
-    'uses' => '\App\Http\Controllers\AuthController@postSignin',
-    'middleware' => ['guest'],
-]);
-
-Route::get('/signout', [
-    'uses' => '\App\Http\Controllers\AuthController@getSignout',
-    'as' => 'auth.signout',
-]);
+Route::get('/signup', [AuthController::class, 'getSignup'])->name('auth.signup');
+Route::post('/signup', [AuthController::class, 'postSignup']);
+Route::get('/signin', [AuthController::class, 'getSignin'])->name('auth.signin');
+Route::post('/signin', [AuthController::class, 'postSignin']);
+Route::get('/signout', [AuthController::class, 'getSignout'])->name('auth.signout');
 
 /**
  * Search
  */
+Route::get('/search', [SearchController::class, 'getResults'])->name('search.results');
 
-Route::get('/search', [
-    'uses' => '\App\Http\Controllers\SearchController@getResults',
-    'as' => 'search.results',
-]);
 
 /**
  * User profile
  */
-
-Route::get('/user/{username}', [
-    'uses' => '\App\Http\Controllers\ProfileController@getProfile',
-    'as' => 'profile.index',
-]);
-
-Route::get('/profile/edit', [
-    'uses' => '\App\Http\Controllers\ProfileController@getEdit',
-    'as' => 'profile.edit',
-    'middleware' => ['auth'],
-]);
-
-Route::post('/profile/edit', [
-    'uses' => '\App\Http\Controllers\ProfileController@postEdit',
-    'middleware' => ['auth'],
-]);
+Route::get('/user/{username}', [ProfileController::class, 'getProfile'])->name('profile.index');
+Route::get('/profile/edit', [ProfileController::class, 'getEdit'])->name('profile.edit');
+Route::post('/profile/edit', [ProfileController::class, 'postEdit']);
 
 /**
  * Friends
  */
-
-Route::get('/friends', [
-    'uses' => '\App\Http\Controllers\FriendController@getIndex',
-    'as' => 'friend.index',
-    'middleware' => ['auth'],
-]);
-
-Route::get('/friends/add/{username}', [
-    'uses' => '\App\Http\Controllers\FriendController@getAdd',
-    'as' => 'friend.add',
-    'middleware' => ['auth'],
-]);
-
-Route::get('/friends/accept/{username}', [
-    'uses' => '\App\Http\Controllers\FriendController@getAccept',
-    'as' => 'friend.accept',
-    'middleware' => ['auth'],
-]);
+Route::get('/friends', [FriendController::class, 'getIndex'])->name('friend.index');
+Route::get('/friends/add/{username}', [FriendController::class, 'getAdd'])->name('friend.add');
+Route::get('/friends/accept/{username}', [FriendController::class, 'getAccept'])->name('friend.accept');
 
 /**
  * Statuses
  */
+Route::post('/status', [StatusController::class, 'postStatus'])->name('status.post');
+Route::post('/status/{statusId}/reply', [StatusController::class, 'postReply'])->name('status.reply');
+Route::get('/status/{statusId}/like', [StatusController::class, 'getLike'])->name('status.like');
 
-Route::post('/status', [
-    'uses' => '\App\Http\Controllers\StatusController@postStatus',
-    'as' => 'status.post',
-    'middleware' => ['auth'],
-]);
-
-Route::post('/status/{statusId}/reply', [
-    'uses' => '\App\Http\Controllers\StatusController@postReply',
-    'as' => 'status.reply',
-    'middleware' => ['auth'],
-]);
-
-Route::get('/status/{statusId}/like', [
-    'uses' => '\App\Http\Controllers\StatusController@getLike',
-    'as' => 'status.like',
-    'middleware' => ['auth'],
-]);
-
-//Poll
-//Route::get('poll/index', [ QuestionnaireController::class, 'index'])->name('poll/index');
-Route::get('/questionnaires/create', [ QuestionnaireController::class, 'create'])->name('questionnaires/create');
-Route::post('/questionnaires', [ QuestionnaireController::class, 'store'])->name('questionnaires');
-Route::get('/questionnaires/{questionnaire}', [ QuestionnaireController::class, 'show']);
-
-Route::get('/questionnaires/{questionnaire}/questions/create',  [ QuestionController::class, 'create']);
-Route::post('/questionnaires/{questionnaire}/questions',  [ QuestionController::class, 'store']);
-
-Route::get('/surveys/{questionnaire}-{slug}',  [ SurveyController::class, 'show']);
-Route::post('/surveys/{questionnaire}-{slug}',  [ SurveyController::class, 'store']);
+/**
+ *Questionnaires
+ */
+Route::get('questionnaires/index', [QuestionnaireController::class, 'index'])->name('questionnaires/index');
+Route::get('/questionnaires/create', [QuestionnaireController::class, 'create'])->name('questionnaires/create');
+Route::post('/questionnaires', [QuestionnaireController::class, 'store'])->name('questionnaires');
+Route::get('/questionnaires/{questionnaire}', [QuestionnaireController::class, 'show']);
+Route::get('/questionnaires/{questionnaire}/questions/create', [QuestionController::class, 'create']);
+Route::post('/questionnaires/{questionnaire}/questions', [QuestionController::class, 'store']);
+Route::get('/surveys/{questionnaire}-{slug}', [SurveyController::class, 'show']);
+Route::post('/surveys/{questionnaire}-{slug}', [SurveyController::class, 'store']);
 
 
 

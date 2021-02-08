@@ -8,7 +8,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('home') }}">Timeline</a></li>
                     <li><a href="{{ route('friend.index') }}">Friends</a></li>
-                    <li><a href="{{ route('questionnaires/create') }}">Create poll</a></li>
+                    <li><a href="{{ route('questionnaires/index') }}">Questionnaires</a></li>
                 </ul>
 
             @endif
@@ -32,6 +32,23 @@
                     <li><a href="{{ route('auth.signin') }}">Sign in</a></li>
                 @endif
             </ul>
+        </div>
+        <div class="col-md12">
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="{{ asset('/storage/images/brandhouse2.jpg') }}" alt="...">
+                </div>
+                <div class="col-xs-4">
+                    <img src="{{ asset('/storage/images/vconnect.png') }}" alt="...">
+                </div>
+                <div class="col-xs-4">
+                    <img src="{{ asset('/storage/images/shippii.jpg') }}" alt="...">
+                </div>
+                <br>
+                <hr>
+                <hr>
+            </div>
+            <h1 class="text-center">BrandHouse Vconnect Shippii Network</h1>
         </div>
     </div>
 </nav>
