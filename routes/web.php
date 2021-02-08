@@ -14,26 +14,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-/**
- * Home
- */
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 /**
  * Authentication
  */
@@ -42,34 +23,28 @@ Route::post('/signup', [AuthController::class, 'postSignup']);
 Route::get('/signin', [AuthController::class, 'getSignin'])->name('auth.signin');
 Route::post('/signin', [AuthController::class, 'postSignin']);
 Route::get('/signout', [AuthController::class, 'getSignout'])->name('auth.signout');
-
 /**
  * Search
  */
 Route::get('/search', [SearchController::class, 'getResults'])->name('search.results');
-
-
 /**
  * User profile
  */
 Route::get('/user/{username}', [ProfileController::class, 'getProfile'])->name('profile.index');
 Route::get('/profile/edit', [ProfileController::class, 'getEdit'])->name('profile.edit');
 Route::post('/profile/edit', [ProfileController::class, 'postEdit']);
-
 /**
  * Friends
  */
 Route::get('/friends', [FriendController::class, 'getIndex'])->name('friend.index');
 Route::get('/friends/add/{username}', [FriendController::class, 'getAdd'])->name('friend.add');
 Route::get('/friends/accept/{username}', [FriendController::class, 'getAccept'])->name('friend.accept');
-
 /**
  * Statuses
  */
 Route::post('/status', [StatusController::class, 'postStatus'])->name('status.post');
 Route::post('/status/{statusId}/reply', [StatusController::class, 'postReply'])->name('status.reply');
 Route::get('/status/{statusId}/like', [StatusController::class, 'getLike'])->name('status.like');
-
 /**
  *Questionnaires
  */
