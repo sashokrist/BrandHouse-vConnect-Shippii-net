@@ -20,19 +20,22 @@ class SurveyController extends Controller
 
     public function store(Request $request, Questionnaire $questionnaire)
     {
+      //  dd($request->user_id);
         $validated = $request->validate(
             [
                 'responses.*.answer_id' => 'required',
                 'responses.*.question_id' => 'required',
                 'survey.email' => 'required|email',
-                'survey.name' => 'required'
+                'survey.name' => 'required',
+                'user_id' => 'required'
             ]
         );
        // dd($request->all());
         $survey = $questionnaire->surveys()->create($validated['survey']);
         $survey->responses()->createMany($validated['responses']);
 
-        return redirect()->route('questionnaires/index');
+       // return redirect()->route('questionnaires/index');
+        return view('questionnaire.show', compact('questionnaire'));
 
     }
 }

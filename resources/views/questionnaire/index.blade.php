@@ -13,7 +13,7 @@
                         <hr>
                         <a href="{{ route('questionnaires/create') }}" class="btn btn-primary">New Questionnaire</a>
                         <hr>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <ul class="list-group">
                                 @foreach($questionnaires as $questionnaire)
                                     <li class="list-group-item">

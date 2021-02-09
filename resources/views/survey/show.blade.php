@@ -41,6 +41,7 @@
                                                     </label>
                                                     <input type="hidden" name="responses[{{ $key }}][question_id]"
                                                            value="{{ $question->id }}">
+
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -68,6 +69,7 @@
                                         @endif
                                     </div>
                                 </div>
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             </div>
                             <button type="submit" class="btn btn-primary">Complete Survey</button>
                         </form>
