@@ -41,35 +41,21 @@
                                                     </label>
                                                     <input type="hidden" name="responses[{{ $key }}][question_id]"
                                                            value="{{ $question->id }}">
-
+                                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                 </li>
                                             @endforeach
                                         </ul>
                                     </div>
                                 </div>
                             @endforeach
-
                             <div class="card">
                                 <div class="card-header">
                                     <h1 class="text-center">Your Information</h1>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="email" class="control-label">Your email address</label>
-                                        <input type="text" name="survey[email]" class="form-control" id="email">
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">{{ $errors->first('email') }}</span>
-                                        @endif
-                                    </div>
-                                    <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                        <label for="name" class="control-label">Choose a name</label>
-                                        <input type="text" name="survey[name]" class="form-control" id="name">
-                                        @if ($errors->has('username'))
-                                            <span class="help-block">{{ $errors->first('name') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="survey[email]" class="form-control" id="email"
+                                       value="{{ Auth::user()->email }}">
+                                <input type="hidden" name="survey[name]" class="form-control" id="name"
+                                       value="{{ Auth::user()->username }}">
                             </div>
                             <button type="submit" class="btn btn-primary">Complete Survey</button>
                         </form>

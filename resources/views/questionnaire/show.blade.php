@@ -4,54 +4,76 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <h4>{{$errors->first()}}</h4>
+                </div>
+            @endif
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="text-center">{{ $questionnaire->title }}</h1>
+                        <h1 class="text-center">Questionnaire: {{ $questionnaire->title }}</h1>
                     </div>
                     <div class="card-body">
-                        Purpose: <h3>{{ $questionnaire->purpose }}</h3><br>
+                         <h3 class="text-center">Purpose: {{ $questionnaire->purpose }}</h3><br>
                         <hr>
-                        <a href="/questionnaires/{{ $questionnaire->id }}/questions/create" class="btn btn-primary">Add Question</a>
-                        <a href="/surveys/{{ $questionnaire->id }}-{{ Str::slug($questionnaire->title) }}" class="btn btn-primary">Take Survey</a>
+                        @if(auth()->user()->isAdmin === 1)
+                            <a href="/questionnaires/{{ $questionnaire->id }}/questions/create" class="btn btn-primary">Add
+                                Question</a><hr>
+                        @endif
                     </div>
                 </div>
 
                 @foreach($questionnaire->questions as $question)
                     <div class="card">
                         <div class="card-header">
-                            <h1 class="text-center">{{ $question->question }}</h1>
+                            <h3 class="text-center">{{ $question->question }}</h3>
                         </div>
                         <div class="card-body">
-                            <ul class="list-group">
+                            <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Answer</th>
+                                    <th scope="col" class="pull-right">Total votes</th>
+                                </tr>
+                                </thead>
                                 @foreach($question->answers as $answer)
-                                    <li class="list-group-item d-flex justify-content-right">
-                                        <div>
-                                            {{ $answer->answer }}
-                                        </div>
-                                        @if($question->response->count())
-                                        <div>
-                                            {{ intval($answer->response->count()  * 100 / $question->response->count())  }} %
-                                        </div>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                               <strong>{{ $answer->answer }}</strong>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @if($question->response->count())
+                                                <div class="pull-right">
+                                               <strong>{{ (int) ($answer->response->count() * 100 / $question->response->count()) }} %</strong>
+                                                </div>
                                             @endif
-                                        </li>
+                                        </td>
+                                    </tr>
+                                    </tbody>
                                 @endforeach
-                            </ul>
+                            </table>
+                            </div>
                         </div>
-
                         <div class="card-footer">
-                            <form action="/questionnaires/{{ $questionnaire->id }}/questions/{{ $question->id }}" method="post">
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="btn btn-danger">Delete question</button>
-                            </form>
+                            @if(auth()->user()->isAdmin === 1)
+                                <form action="/questionnaires/{{ $questionnaire->id }}/questions/{{ $question->id }}"
+                                      method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete question</button>
+                                    <hr>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 @endforeach
+                <a href="/surveys/{{ $questionnaire->id }}-{{ Str::slug($questionnaire->title) }}"
+                   class="btn btn-primary center-block">Take Survey</a>
             </div>
-
         </div>
-
-
 @endsection

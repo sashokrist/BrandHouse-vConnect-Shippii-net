@@ -132,4 +132,10 @@ class User extends Model implements AuthenticatableContract
     {
         return $this->hasMany(Questionnaire::class);
     }
+
+    public function isAdmin()
+    {
+        $admin = self::where('isAdmin', 1)->first();
+        return true;
+    }
 }
