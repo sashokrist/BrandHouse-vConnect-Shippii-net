@@ -34,7 +34,7 @@ class QuestionnaireController extends Controller
         );
 
         $questionnaire = auth()->user()->questionnaries()->create($validated);
-        ///dd($questionnaire->id);
+       // dd($questionnaire);
 
         return redirect('/questionnaires/' . $questionnaire->id);
         //return view('questionnaire.show', compact('questionnaire'));
@@ -43,7 +43,7 @@ class QuestionnaireController extends Controller
     public function show(Questionnaire $questionnaire)
     {
         $questionnaire->load('questions.answers.response');
-      //dd($questionnaire);
+  // dd($questionnaire);
         return view('questionnaire.show', compact('questionnaire'));
     }
 }

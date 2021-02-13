@@ -18,6 +18,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 /**
  * Authentication
  */
+Route::get('/login', [AuthController::class, 'getSignin'])->name('login');
+Route::post('/signin', [AuthController::class, 'postSignin']);
 Route::get('/signup', [AuthController::class, 'getSignup'])->name('auth.signup');
 Route::post('/signup', [AuthController::class, 'postSignup']);
 Route::get('/signin', [AuthController::class, 'getSignin'])->name('auth.signin');

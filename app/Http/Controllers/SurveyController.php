@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Questionnaire;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SurveyController extends Controller
@@ -16,26 +17,16 @@ class SurveyController extends Controller
 
     public function show(Questionnaire $questionnaire, $slug)
     {
-       // dd($questionnaire->id);
-        $res = Survey::where('questionnaire_id', $questionnaire->id)->first();
-  //  dd($res);
-    if ($res === null){
-        $questionnaire->load('questions.answers');
-        return view('survey.show', compact('questionnaire'));
-    } else{
-
-        $id = auth()->user()->id;
-        foreach ($res->responses as $vote) {
-            // dd($vote->user_id);
-            if ($vote->user_id === $id) {
-               // dd('user exist');
-                return redirect('/questionnaires/' . $questionnaire->id)->withErrors(['You already have voted!']);
-            } else {
-                $questionnaire->load('questions.answers');
-                return view('survey.show', compact('questionnaire'));
-            }
+        $user = User::with('response')->where('id', auth()->user()->id)->first();
+       // dd($user->response);
+        if ($user->response->isEmpty()){
+           // dd('not voted');
+            $questionnaire->load('questions.answers');
+            return view('survey.show', compact('questionnaire'));
+        } else{
+           // dd('voted');
+            return redirect()->back()->withErrors(['You already have voted!']);
         }
-    }
     }
 
     public function store(Request $request, Questionnaire $questionnaire)

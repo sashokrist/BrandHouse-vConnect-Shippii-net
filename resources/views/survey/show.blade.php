@@ -19,14 +19,16 @@
                                 </ul>
                             </div>
                         @endif
+                            @if($questionnaire->questions->isEmpty())
+                                <h3>No questions for this survey yet</h3>
+                            @endif
                         <form action="/surveys/{{ $questionnaire->id }}-{{ Str::slug($questionnaire->title) }}"
                               method="post">
                             @csrf
                             @foreach($questionnaire->questions as $key => $question)
                                 <div class="card">
                                     <div class="card-header">
-                                        <h1 class="text-center"><strong>{{ $key + 1 }}
-                                                - </strong>{{ $question->question }}</h1>
+                                        <h1 class="text-center"><strong>{{ $key + 1 }} - </strong>{{ $question->question }}</h1>
                                     </div>
                                     <div class="card-body">
                                         <ul class="list-group">
@@ -48,16 +50,18 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="card">
-                                <div class="card-header">
-                                    <h1 class="text-center">Your Information</h1>
+                            @if(!$questionnaire->questions->isEmpty())
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h1 class="text-center">Your Information</h1>
+                                    </div>
+                                    <input type="hidden" name="survey[email]" class="form-control" id="email"
+                                           value="{{ Auth::user()->email }}">
+                                    <input type="hidden" name="survey[name]" class="form-control" id="name"
+                                           value="{{ Auth::user()->username }}">
                                 </div>
-                                <input type="hidden" name="survey[email]" class="form-control" id="email"
-                                       value="{{ Auth::user()->email }}">
-                                <input type="hidden" name="survey[name]" class="form-control" id="name"
-                                       value="{{ Auth::user()->username }}">
-                            </div>
                             <button type="submit" class="btn btn-primary">Complete Survey</button>
+                            @endif
                         </form>
                     </div>
                 </div>

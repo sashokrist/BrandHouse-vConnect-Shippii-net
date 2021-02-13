@@ -23,8 +23,11 @@
                         @endif
                     </div>
                 </div>
-
+                @if($questionnaire->questions->isEmpty())
+                    <h3>No questions for this survey yet</h3>
+                @endif
                 @foreach($questionnaire->questions as $question)
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="text-center">{{ $question->question }}</h3>
@@ -72,8 +75,11 @@
                         </div>
                     </div>
                 @endforeach
-                <a href="/surveys/{{ $questionnaire->id }}-{{ Str::slug($questionnaire->title) }}"
-                   class="btn btn-primary center-block">Take Survey</a>
+                @if(!$questionnaire->questions->isEmpty())
+                    <a href="/surveys/{{ $questionnaire->id }}-{{ Str::slug($questionnaire->title) }}"
+                       class="btn btn-primary center-block">Take Survey</a>
+                @endif
+
             </div>
         </div>
 @endsection
