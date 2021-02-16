@@ -21,7 +21,8 @@
                         @endif
                         <hr>
                         @if(auth()->user()->isAdmin === 1)
-                        <a href="{{ route('questionnaires/create') }}" class="btn btn-primary center-block">New Questionnaire</a>
+                            <a href="{{ route('questionnaires/create') }}" class="btn btn-primary center-block">New
+                                Questionnaire</a>
                         @endif
                         <hr>
                         <div class="col-md-12">
@@ -29,7 +30,8 @@
                                 @foreach($questionnaires as $questionnaire)
                                     <li class="list-group-item">
                                         <a href="{{ $questionnaire->path() }}"><h2>{{ $questionnaire->title }}</h2></a>
-                                        <a href="{{ $questionnaire->path() }}"> <h4>{{ $questionnaire->purpose }}</h4></a>
+                                        <a href="{{ $questionnaire->path() }}"><h4>{{ $questionnaire->purpose }}</h4>
+                                        </a>
                                         <div class="mt-2">
                                             <small>Share URL</small>
                                             <p>
@@ -39,13 +41,9 @@
                                     </li>
                                 @endforeach
                             </ul>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
 @endsection

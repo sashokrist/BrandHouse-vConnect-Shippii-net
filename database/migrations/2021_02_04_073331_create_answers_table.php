@@ -17,6 +17,7 @@ class CreateAnswersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('question_id');
             $table->string('answer');
+            $table->string('filename')->default('picture.jpg');
             $table->timestamps();
         });
     }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Questionnaire;
 use App\Models\Survey;
 use App\Models\SurveyResponse;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class SurveyController extends Controller
@@ -17,16 +16,12 @@ class SurveyController extends Controller
 
     public function show(Questionnaire $questionnaire, $slug)
     {
-        $user = User::with('response')->where('id', auth()->user()->id)->first();
-       // dd($user->response);
-        if ($user->response->isEmpty()){
-           // dd('not voted');
+        $survey = Survey::with('responses')->where('questionnaire_id', $questionnaire->id)->first();
+        if ($survey === null) {
             $questionnaire->load('questions.answers');
             return view('survey.show', compact('questionnaire'));
-        } else{
-           // dd('voted');
-            return redirect()->back()->withErrors(['You already have voted!']);
         }
+        return redirect()->back()->withErrors(['You already voted']);
     }
 
     public function store(Request $request, Questionnaire $questionnaire)

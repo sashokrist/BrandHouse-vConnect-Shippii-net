@@ -77,7 +77,9 @@ class User extends Model implements AuthenticatableContract
 
     public function friends()
     {
-        return $this->friendsOfMine()->wherePivot('accepted', true)->get()->merge($this->friendOf()->wherePivot('accepted', true)->get());
+        return $this->friendsOfMine()->wherePivot('accepted', true)->get()->merge(
+            $this->friendOf()->wherePivot('accepted', true)->get()
+        );
     }
 
     public function friendRequests()
@@ -92,12 +94,12 @@ class User extends Model implements AuthenticatableContract
 
     public function hasFriendRequestPending(User $user)
     {
-        return (bool) $this->friendRequestsPending()->where('id', $user->id)->count();
+        return (bool)$this->friendRequestsPending()->where('id', $user->id)->count();
     }
 
     public function hasFriendRequestReceived(User $user)
     {
-        return (bool) $this->friendRequests()->where('id', $user->id)->count();
+        return (bool)$this->friendRequests()->where('id', $user->id)->count();
     }
 
     public function addFriend(User $user)
@@ -107,25 +109,26 @@ class User extends Model implements AuthenticatableContract
 
     public function acceptFriendRequest(User $user)
     {
-        $this->friendRequests()->where('id', $user->id)->first()->pivot->update([
-            'accepted' => true,
-        ]);
+        $this->friendRequests()->where('id', $user->id)->first()->pivot->update(
+            [
+                'accepted' => true,
+            ]
+        );
     }
 
     public function isFriendsWith(User $user)
     {
-        return (bool) $this->friends()->where('id', $user->id)->count();
+        return (bool)$this->friends()->where('id', $user->id)->count();
     }
 
     public function hasLikedStatus(Status $status)
     {
-        return (bool) $status->likes->where('user_id', $this->id)->count();
+        return (bool)$status->likes->where('user_id', $this->id)->count();
     }
 
-    public function posts() {
-
+    public function posts()
+    {
         return $this->hasMany(Post::class);
-
     }
 
     public function questionnaries()
@@ -142,5 +145,10 @@ class User extends Model implements AuthenticatableContract
     public function response()
     {
         return $this->hasMany(SurveyResponse::class, 'user_id');
+    }
+
+    public function surveys()
+    {
+        return $this->hasMany(Survey::class, 'email');
     }
 }
