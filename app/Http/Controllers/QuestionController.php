@@ -17,41 +17,46 @@ class QuestionController extends Controller
     public function create(Questionnaire $questionnaire)
     {
         //dd($questionnaire);
-        return view('question.create', compact('questionnaire'));
+        return view('question.create2', compact('questionnaire'));
     }
 
     public function store(Request $request, Questionnaire $questionnaire)
     {
-      //  dd($request->all());
-        $validated = $request->validate(
-            [
-                'question.question' => 'required',
-                'answers.*.answer' => 'required',
-            ]
-        );
-        $question = $questionnaire->questions()->create($validated['question']);
-        $question->answers()->createMany($validated['answers']);
-
+    // dd($$questionnaire);
         $files = [];
         if($request->hasfile('filenames'))
         {
             foreach($request->file('filenames') as $file)
             {
                 $name = time().'.'.$file->extension();
-              //  dd($name);
+                //  dd($name);
                 $file->move(public_path('files'), $name);
                 $files[] = $name;
             }
         }
         $filename = json_encode($files);
-dd($filename);
-        $q = Question::with('answers')->first();
-        foreach ($q->answers as $answer){
-           // dd($answer);
-           $answer->filename = $filename;
-        }
-        $q->save();
+       // dd($filename);
+        $validated = $request->validate(
+            [
+                'question.question' => 'required',
+                'answers.*.answer' => 'required'
+            ]
+        );
+        $question = $questionnaire->questions()->create($validated['question']);
+     //dd($question->answers());
+        $question->answers()->createMany($validated['answers']);
+       // $question->answers()->createMany($files);
+       /* $question->answers()->createMany([
+          [ 'filename' => $filename]
+         ]);*/
 
+     /*   $rrr = $question->answers()->get();
+        foreach ($rrr as $img){
+            foreach ($files as $pic){
+                $img->filename = $pic;
+            }
+        }
+      $img->save();*/
         return redirect('/questionnaires/' . $questionnaire->id);
         // return view('questionnaire.show', compact('questionnaire'));
     }

@@ -16,12 +16,22 @@ class SurveyController extends Controller
 
     public function show(Questionnaire $questionnaire, $slug)
     {
-        $survey = Survey::with('responses')->where('questionnaire_id', $questionnaire->id)->first();
-        if ($survey === null) {
+        $surveys = Survey::with('responses')->where('questionnaire_id', $questionnaire->id)->get();
+        if ($surveys->isEmpty()) {
             $questionnaire->load('questions.answers');
             return view('survey.show', compact('questionnaire'));
+        } else {
+            foreach ($surveys as $survey) {
+                $name = $survey->name;
+            }
+            if ($name !== auth()->user()->username) {
+                $questionnaire->load('questions.answers');
+                return view('survey.show', compact('questionnaire'));
+            }
+            return redirect('questionnaires/index')->with(['questionnaire' => $questionnaire])->withErrors(
+                ['You already voted']
+            );
         }
-        return redirect()->back()->withErrors(['You already voted']);
     }
 
     public function store(Request $request, Questionnaire $questionnaire)
@@ -38,7 +48,7 @@ class SurveyController extends Controller
         $survey->responses()->createMany($validated['responses']);
 
         $user = SurveyResponse::with('survey')->where('survey_id', $survey->id)->get();
-
+//dd($user);
         foreach ($user as $usr) {
             $usr->user_id = auth()->user()->id;
             $usr->save();

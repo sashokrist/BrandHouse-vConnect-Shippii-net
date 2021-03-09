@@ -36,13 +36,13 @@
         <div class="col-md12">
             <div class="row">
                 <div class="col-xs-4">
-                    <img src="{{ asset('/storage/images/brandhouse2.jpg') }}" alt="...">
+                    <img src="{{ asset('images/brandhouse2.png') }}" alt="...">
                 </div>
                 <div class="col-xs-4">
-                    <img src="{{ asset('/storage/images/vconnect.png') }}" alt="...">
+                    <img src="{{ asset('images/vconnect.png') }}" alt="...">
                 </div>
                 <div class="col-xs-4">
-                    <img src="{{ asset('/storage/images/shippii.jpg') }}" alt="...">
+                    <img src="{{ asset('images/shippii.jpg') }}" alt="...">
                 </div>
                 <br>
                 <hr>

@@ -32,7 +32,7 @@
                                     <legend>Choices</legend>
                                     <div class="form-group">
                                         Choice 1: <input type="text" name="answers[][answer]" placeholder="choice 1">
-                                        <input type="file" name="filenames[]"/>
+
                                         <label for="fileElem" class="forupload">
                                             <strong><i class="far fa-image"></i></strong>
                                         </label>
@@ -42,31 +42,11 @@
                                     </div>
                                     <div class="form-group">
                                         Choice 2: <input type="text" name="answers[][answer]" placeholder="choice 2">
-                                        <input type="file" name="filenames[]"/>
+
                                         <label for="fileElem" class="forupload">
                                             <strong><i class="far fa-image"></i></strong>
                                         </label>
                                         @error('answers.1.answer')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        Choice 3: <input type="text" name="answers[][answer]" placeholder="choice 3">
-                                        <input type="file" name="filenames[]"/>
-                                        <label for="fileElem" class="forupload">
-                                            <strong><i class="far fa-image"></i></strong>
-                                        </label>
-                                        @error('answers.2.answer')
-                                        <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        Choice 4: <input type="text" name="answers[][answer]" placeholder="choice 4">
-                                        <input type="file" name="filenames[]"/>
-                                        <label for="fileElem" class="forupload">
-                                            <strong><i class="far fa-image"></i></strong>
-                                        </label>
-                                        @error('answers.3.answer')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
