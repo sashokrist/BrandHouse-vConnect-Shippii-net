@@ -22,8 +22,8 @@ class QuestionController extends Controller
 
     public function store(Request $request, Questionnaire $questionnaire)
     {
-    // dd($$questionnaire);
-        $files = [];
+    //dd($request->all());
+       /* $files = [];
         if($request->hasfile('filenames'))
         {
             foreach($request->file('filenames') as $file)
@@ -34,7 +34,7 @@ class QuestionController extends Controller
                 $files[] = $name;
             }
         }
-        $filename = json_encode($files);
+        $filename = json_encode($files);*/
        // dd($filename);
         $validated = $request->validate(
             [
@@ -57,7 +57,10 @@ class QuestionController extends Controller
             }
         }
       $img->save();*/
-        return redirect('/questionnaires/' . $questionnaire->id);
+        return response()->json([
+                                    'success'  => 'Data Added successfully.'
+                                ]);
+       // return redirect('/questionnaires/' . $questionnaire->id);
         // return view('questionnaire.show', compact('questionnaire'));
     }
 
