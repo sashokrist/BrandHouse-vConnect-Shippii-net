@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventSignUpController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
@@ -12,6 +14,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Status2Controller;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SurveyController;
+use App\Models\Event;
+use App\Models\EventSignUp;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -59,6 +63,15 @@ Route::post('/questionnaires/{questionnaire}/questions', [QuestionController::cl
 Route::delete('/questionnaires/{questionnaire}/questions/{question}', [QuestionController::class, 'destroy']);
 Route::get('/surveys/{questionnaire}-{slug}', [SurveyController::class, 'show']);
 Route::post('/surveys/{questionnaire}-{slug}', [SurveyController::class, 'store']);
+/**
+ * Events
+ */
+Route::get('event', [EventController::class, 'index'])->name('event/index');
+Route::get('event/create', [EventController::class, 'create'])->name('event/create');
+Route::post('event/store', [EventController::class, 'store'])->name('event/store');
+Route::get('event/signup', [EventSignUpController::class, 'index'])->name('event/signup');
+Route::post('event/signup/store', [EventSignUpController::class, 'store'])->name('event/signup/store');
+
 
 
 

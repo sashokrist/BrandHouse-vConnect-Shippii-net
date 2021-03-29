@@ -17,14 +17,24 @@ class SurveyController extends Controller
     public function show(Questionnaire $questionnaire, $slug)
     {
         $surveys = Survey::with('responses')->where('questionnaire_id', $questionnaire->id)->get();
+      // dd($surveys);
+        $resId = SurveyResponse::all();
+        foreach ($resId as $item) {
+           $id = $item->question_id;
+   // dd($id);
+        }
         if ($surveys->isEmpty()) {
             $questionnaire->load('questions.answers');
             return view('survey.show', compact('questionnaire'));
         } else {
             foreach ($surveys as $survey) {
                 $name = $survey->name;
+                foreach ($survey->responses as $responce){
+                    $res = $responce->question_id;
+                 // dd($responce);
+                }
             }
-            if ($name !== auth()->user()->username) {
+            if ($res !== $id && $name !== auth()->user()->username   ) {
                 $questionnaire->load('questions.answers');
                 return view('survey.show', compact('questionnaire'));
             }

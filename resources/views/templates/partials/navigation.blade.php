@@ -9,6 +9,7 @@
                     <li><a href="{{ route('home') }}">Timeline</a></li>
                     <li><a href="{{ route('friend.index') }}">Friends</a></li>
                     <li><a href="{{ route('questionnaires/index') }}">Questionnaires</a></li>
+                    <li><a href="{{ route('event/index') }}">Event</a></li>
                 </ul>
 
             @endif
@@ -48,7 +49,7 @@
                 <hr>
                 <hr>
             </div>
-            <h1 class="text-center">BrandHouse Vconnect Shippii Network</h1>
+{{--            <h1 class="text-center">BrandHouse Vconnect Shippii Network</h1>--}}
         </div>
     </div>
 </nav>
