@@ -27,9 +27,9 @@
                     <div class="col-md-12">
                         <h2 class="text-center">{{ $event->event_title }}</h2>
                         <div class="col-md-12">
-                            <form action="{{ route('event/store') }}" method="post">
+                            <form action="{{ route('event/signup/store') }}" method="post">
                                 @csrf
-                                <button type="submit" class="btn btn-primary center-block">Sign up for this Event</button>
+                                <button type="submit" class="btn btn-primary center-block">Sign up for {{ $event->event_title }}</button>
                             </form>
                         </div>
                     </div>

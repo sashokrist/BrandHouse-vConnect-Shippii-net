@@ -151,4 +151,9 @@ class User extends Model implements AuthenticatableContract
     {
         return $this->hasMany(Survey::class, 'email');
     }
+
+    public function eventSign()
+    {
+        return $this->hasMany(EventSignUp::class, 'user_id');
+    }
 }
