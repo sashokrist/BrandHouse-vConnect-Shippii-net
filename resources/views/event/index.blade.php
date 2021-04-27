@@ -24,11 +24,13 @@
                                 Event</a>
                         @endif
                     </div>
+                    @if($event !== null)
                     <div class="col-md-12">
                         <h2 class="text-center">{{ $event->event_title }}</h2>
                         <div class="col-md-12">
                             <form action="{{ route('event/signup/store') }}" method="post">
                                 @csrf
+                                <input type="hidden" name="signup_id" value="{{ $event->id }}">
                                 <button type="submit" class="btn btn-primary center-block">Sign up for {{ $event->event_title }}</button>
                             </form>
                         </div>
@@ -58,6 +60,9 @@
                         </table>
                     </div>
                 </div>
+                @else
+                    <h2>No event yet</h2>
+                @endif
             </div>
         </div>
 @endsection
