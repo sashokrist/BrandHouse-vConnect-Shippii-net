@@ -17,7 +17,7 @@ class SurveyController extends Controller
     public function show(Questionnaire $questionnaire, $slug)
     {
         $surveys = Survey::with('responses')->where('questionnaire_id', $questionnaire->id)->get();
-      // dd($surveys);
+    // dd($surveys);
         $resId = SurveyResponse::all();
         foreach ($resId as $item) {
            $id = $item->question_id;
@@ -28,16 +28,23 @@ class SurveyController extends Controller
             return view('survey.show', compact('questionnaire'));
         } else {
             foreach ($surveys as $survey) {
-                $name = $survey->name;
-                foreach ($survey->responses as $responce){
-                    $res = $responce->question_id;
-                 // dd($responce);
-                }
+             if ($survey->responses->isEmpty()) {
+                 $questionnaire->load('questions.answers');
+                 return view('survey.show', compact('questionnaire'));
+             } else{
+                 $name = $survey->name;
+                 foreach ($survey->responses as $responce){
+                     $res = $responce->question_id;
+                     // dd($responce);
+                     if ($res !== $id && $name !== auth()->user()->username   ) {
+                         $questionnaire->load('questions.answers');
+                         return view('survey.show', compact('questionnaire'));
+                     }
+                 }
+             }
+
             }
-            if ($res !== $id && $name !== auth()->user()->username   ) {
-                $questionnaire->load('questions.answers');
-                return view('survey.show', compact('questionnaire'));
-            }
+
             return redirect('questionnaires/index')->with(['questionnaire' => $questionnaire])->withErrors(
                 ['You already voted']
             );

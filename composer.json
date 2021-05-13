@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "inani/larapoll": "^3.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^8.12",
         "laravel/helpers": "^1.4",
@@ -28,7 +29,8 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+		"platform-check": false
     },
     "extra": {
         "laravel": {

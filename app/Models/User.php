@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Inani\Larapoll\Traits\Voter;
 
 class User extends Model implements AuthenticatableContract
 {
     use Authenticatable;
+    use Voter;
 
     protected $table = 'users';
 

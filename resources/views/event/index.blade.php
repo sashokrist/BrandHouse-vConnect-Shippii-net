@@ -24,45 +24,48 @@
                                 Event</a>
                         @endif
                     </div>
-                    @if($event !== null)
+                   @if($event !== null)
                     <div class="col-md-12">
-                        <h2 class="text-center">{{ $event->event_title }}</h2>
                         <div class="col-md-12">
-                            <form action="{{ route('event/signup/store') }}" method="post">
+                            <h2 class="text-center">Sign up for - {{ $event->title }}</h2>
+                            <form action="" method="post">
                                 @csrf
                                 <input type="hidden" name="signup_id" value="{{ $event->id }}">
-                                <button type="submit" class="btn btn-primary center-block">Sign up for {{ $event->event_title }}</button>
+                                <button type="submit" class="btn btn-primary center-block">Sign up</button>
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col" class="pull-right">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($eventSignUps as $item)
-                            <tr>
+                    @else
+                        <h2>No event yet</h2>
+                    @endif
+                        {{--   <div class="col-md-12">
+                              <table class="table">
+                                  <thead>
+                                  <tr>
+                                      <th scope="col">Name</th>
+                                      <th scope="col" class="pull-right">Action</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  @foreach($eventSignUps as $item)
+                                  <tr>
 
-                                    <td>{{ $item->user_id }}</td>
-                                    <td>
-                                        <form action="">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger pull-right">Delete</button>
-                                        </form>
-                                    </td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @else
-                    <h2>No event yet</h2>
-                @endif
+                                          <td>{{ $item->user_id }}</td>
+                                          <td>
+                                              <form action="">
+                                                  @csrf
+                                                  <button type="submit" class="btn btn-danger pull-right">Delete</button>
+                                              </form>
+                                          </td>
+                                  </tr>
+                                  @endforeach
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      @else
+                          <h2>No event yet</h2>
+                      @endif--}}
             </div>
         </div>
 @endsection
