@@ -28,9 +28,9 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <h2 class="text-center">Sign up for - {{ $event->title }}</h2>
-                            <form action="" method="post">
+                            <form action="{{ route('event/vote/store') }}" method="post">
                                 @csrf
-                                <input type="hidden" name="signup_id" value="{{ $event->id }}">
+                                <input type="hidden" name="event_id" value="{{ $event->id }}">
                                 <button type="submit" class="btn btn-primary center-block">Sign up</button>
                             </form>
                         </div>
@@ -38,7 +38,7 @@
                     @else
                         <h2>No event yet</h2>
                     @endif
-                        {{--   <div class="col-md-12">
+                       <div class="col-md-12">
                               <table class="table">
                                   <thead>
                                   <tr>
@@ -47,15 +47,19 @@
                                   </tr>
                                   </thead>
                                   <tbody>
-                                  @foreach($eventSignUps as $item)
+                                  @foreach($votes as $item)
                                   <tr>
 
-                                          <td>{{ $item->user_id }}</td>
+                                          <td>{{ $item->name }}</td>
                                           <td>
+                                              @if (auth()->user()->username ===  $item->name)
                                               <form action="">
                                                   @csrf
                                                   <button type="submit" class="btn btn-danger pull-right">Delete</button>
                                               </form>
+                                              @else
+                                                  <button type="submit" class="btn btn-danger pull-right" disabled>Delete</button>
+                                              @endif
                                           </td>
                                   </tr>
                                   @endforeach
@@ -63,9 +67,6 @@
                               </table>
                           </div>
                       </div>
-                      @else
-                          <h2>No event yet</h2>
-                      @endif--}}
             </div>
         </div>
 @endsection

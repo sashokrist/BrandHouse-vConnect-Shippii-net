@@ -14,6 +14,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Status2Controller;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\VoteController;
 use App\Models\Event;
 use App\Models\EventSignUp;
 use Illuminate\Support\Facades\Route;
@@ -69,8 +70,8 @@ Route::post('/surveys/{questionnaire}-{slug}', [SurveyController::class, 'store'
 Route::get('event', [EventController::class, 'index'])->name('event/index');
 Route::get('event/create', [EventController::class, 'create'])->name('event/create');
 Route::post('event/store', [EventController::class, 'store'])->name('event/store');
-Route::get('event/signup', [EventSignUpController::class, 'index'])->name('event/signup');
-Route::post('event/signup/store', [EventSignUpController::class, 'store'])->name('event/signup/store');
+Route::get('event/vote', [VoteController::class, 'index'])->name('event/vote');
+Route::post('event/vote/store', [VoteController::class, 'store'])->name('event/vote/store');
 
 
 
