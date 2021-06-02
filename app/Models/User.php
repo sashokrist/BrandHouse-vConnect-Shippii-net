@@ -10,7 +10,7 @@ use Inani\Larapoll\Traits\Voter;
 class User extends Model implements AuthenticatableContract
 {
     use Authenticatable;
-    use Voter;
+   // use Voter;
 
     protected $table = 'users';
 

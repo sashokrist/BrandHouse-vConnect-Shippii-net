@@ -8,8 +8,9 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ route('home') }}">Timeline</a></li>
                     <li><a href="{{ route('friend.index') }}">Friends</a></li>
-                    <li><a href="{{ route('questionnaires/index') }}">Questionnaires</a></li>
                     <li><a href="{{ route('event/index') }}">Event</a></li>
+                    <li><a href="{{ route('poll') }}">Poll</a></li>
+                    <li><a href="{{ route('poll/create') }}">Poll Create</a></li>
                 </ul>
 
             @endif

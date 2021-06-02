@@ -6,6 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventSignUpController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PollController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
@@ -73,7 +74,12 @@ Route::post('event/store', [EventController::class, 'store'])->name('event/store
 Route::get('event/vote', [VoteController::class, 'index'])->name('event/vote');
 Route::post('event/vote/store', [VoteController::class, 'store'])->name('event/vote/store');
 Route::post('event/vote/delete', [VoteController::class, 'destroy'])->name('event/vote/delete');
-
+/**
+ * Poll
+ */
+Route::get('/poll', [PollController::class, 'index'])->name('poll');
+Route::get('/poll/create', [PollController::class, 'create'])->name('poll/create');
+Route::post('/poll/store', [PollController::class, 'store'])->name('poll/store');
 
 
 
