@@ -53,8 +53,9 @@
                                           <td>{{ $item->name }}</td>
                                           <td>
                                               @if (auth()->user()->username ===  $item->name)
-                                              <form action="">
+                                              <form action="{{ route('event/vote/delete') }}" method="post">
                                                   @csrf
+                                                  <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
                                                   <button type="submit" class="btn btn-danger pull-right">Delete</button>
                                               </form>
                                               @else

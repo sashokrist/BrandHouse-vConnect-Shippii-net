@@ -7,93 +7,32 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
-       //dd($request->all());
-        $eventid = $request->eventid;
-        $userVote = Vote::with('user')->where('event_id', $eventid)->where('user_id', auth()->user()->id)->first();
+      // dd($request->all());
+        $eventid = $request->event_id;
+        $userVote = Vote::where('event_id', $eventid)->where('user_id', auth()->user()->id)->first();
         if ($userVote === null){
             $vote = new Vote();
-
             $vote->user_id = auth()->user()->id;
             $vote->name = auth()->user()->username;
             $vote->event_id = $request->event_id;
             $vote->save();
-
-            return redirect()->back()->with('success','You signed up successfully!');
+            return redirect()->back()->with('success','You vote successfully!');
         } else {
             return redirect()->back()->withErrors(['You already voted']);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Vote $vote)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Vote $vote)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Vote $vote)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Vote  $vote
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Vote $vote)
-    {
-        //
+        $deleteVote = Vote::where('user_id', $request->user_id)->first();
+        $deleteVote->delete();
+        return redirect()->back()->with('success','You deleted your vote successfully!');
     }
 }

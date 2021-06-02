@@ -72,6 +72,7 @@ Route::get('event/create', [EventController::class, 'create'])->name('event/crea
 Route::post('event/store', [EventController::class, 'store'])->name('event/store');
 Route::get('event/vote', [VoteController::class, 'index'])->name('event/vote');
 Route::post('event/vote/store', [VoteController::class, 'store'])->name('event/vote/store');
+Route::post('event/vote/delete', [VoteController::class, 'destroy'])->name('event/vote/delete');
 
 
 
