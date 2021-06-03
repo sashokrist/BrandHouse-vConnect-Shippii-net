@@ -23,9 +23,9 @@ class VoteController extends Controller
             $vote->name = auth()->user()->username;
             $vote->event_id = $request->event_id;
             $vote->save();
-            return redirect()->back()->with('success','You vote successfully!');
+            return redirect()->back()->with('message','You sign up successfully!');
         } else {
-            return redirect()->back()->withErrors(['You already voted']);
+            return redirect()->back()->withErrors(['You already sign up']);
         }
     }
 

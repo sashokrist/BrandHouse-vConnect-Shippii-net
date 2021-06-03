@@ -33,7 +33,7 @@ class EventController extends Controller
         $event->title = $request->title;
         $event->save();
 
-        return redirect()->route('event/index')->with('success','New event was created successfully!');
+        return redirect()->route('event/index')->with('message','New event was created successfully!');
     }
 
     public function show()

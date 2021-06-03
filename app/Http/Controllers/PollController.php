@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Poll;
+use App\Models\PollAnswer;
 use App\Models\PollResult;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -29,12 +30,13 @@ class PollController extends Controller
         $poll->save();
 
         $pollAnswer = Poll::latest()->first();
+       // dd($pollAnswer->id);
         foreach($request->answers as $res){
-            $result = new PollResult();
+            $result = new PollAnswer();
             $result->poll_id = $pollAnswer->id;
             $result->answer = $res;
             $result->save();
         }
-        return redirect()->route('event/index')->with('success','New event was created successfully!');
+        return redirect()->route('poll')->with('message', 'New poll was created successfully!');
     }
 }

@@ -6,16 +6,21 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <div class="card-header">
                         <h1 class="text-center">Poll</h1>
                     </div>
-                                <form action="{{ route('event/vote/store') }}" method="post">
+                                <form action="{{ route('poll/result/store') }}" method="post">
                                     @csrf
                                     <h2 class="text-center">{{ $poll->title }}</h2>
-
+                                    <input type="hidden" name="poll_id" value="{{ $poll->id }}">
                                     @foreach($poll->answer as $answer)
                                         <div class="form-check text-center">
-                                            <input class="form-check-input" type="checkbox" value="{{ $answer->answer }}" id="flexCheckChecked">
+                                            <input type="checkbox" class="form-check-input" name="answer[]" value="{{ $answer->answer }}" multiple>
                                             <label class="form-check-label" for="flexCheckChecked">
                                                 {{ $answer->answer }}
                                             </label>
