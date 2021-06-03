@@ -13,8 +13,9 @@ class PollController extends Controller
     public function index()
     {
         $poll = Poll::with('answer')->latest()->first();
+        $results = PollResult::with('user')->get();
        // dd($poll);
-        return view('poll.index' , compact('poll'));
+        return view('poll.index' , compact('poll', 'results'));
     }
 
     public function create()
